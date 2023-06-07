@@ -3,6 +3,7 @@ import time
 import os
 from dotenv import load_dotenv
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 
 load_dotenv()
 
@@ -10,6 +11,7 @@ AUTHORIZATION = os.getenv("AUTHORIZATION")
 USERID = os.getenv("USERID")
 
 app = Flask(__name__)
+CORS(app)
 
 
 def convert(text):
@@ -53,10 +55,11 @@ def check(transcriptionId):
 def generate():
     data = request.get_json()
     text = data["text"]
+    print("generating audio from following text: " + text)
     transcriptionId = convert(text)
     audioUrl = check(transcriptionId)
     return jsonify({"audioUrl": audioUrl})
 
 
 if __name__ == "__main__":
-    app.run(port=5000, debug=True)
+    app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
