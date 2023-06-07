@@ -1,0 +1,38 @@
+openapi: 3.0.0
+info:
+  title: Text to Speech API
+  description: A simple API to convert text to speech using Play.ht service
+  version: 1.0.0
+servers:
+  - url: http://localhost:5000
+paths:
+  /generate:
+    post:
+      summary: Convert text to speech
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - text
+              properties:
+                text:
+                  type: string
+                  description: The text to convert to speech.
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  audioUrl:
+                    type: string
+                    description: The URL of the audio file.
+        "400":
+          description: Invalid input
+        "500":
+          description: Internal server error
