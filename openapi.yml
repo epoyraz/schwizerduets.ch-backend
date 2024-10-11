@@ -4,7 +4,7 @@ info:
   description: A simple API to convert text to speech using Play.ht service
   version: 1.0.0
 servers:
-  - url: http://localhost:5000
+  - url: http://localhost:7333
 paths:
   /generate:
     post:
